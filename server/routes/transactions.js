@@ -8,16 +8,28 @@ const {
   getCreditTrans,
   getDebitTrans,
 } = TransactionController;
-import {DebitValidationRules, creditValidationRules, validate} from '../validator/Validator.js'
+import {
+  DebitValidationRules,
+  creditValidationRules,
+  validate,
+} from "../validator/Validator.js";
 const router = express.Router();
 
-router.post("/debit/:accountnumber", checkAuthToken,DebitValidationRules(), validate, debit);
-router.post("/credit/:accountnumber", checkAuthToken, creditValidationRules(), validate, deposit);
-router.get(
-  "/transactions",
+router.post(
+  "/debit/:accountnumber",
   checkAuthToken,
-  getAllUserTransactions
+  DebitValidationRules(),
+  validate,
+  debit
 );
+router.post(
+  "/credit/:accountnumber",
+  checkAuthToken,
+  creditValidationRules(),
+  validate,
+  deposit
+);
+router.get("/transactions", checkAuthToken, getAllUserTransactions);
 router.get("/credit/:accountnumber", checkAuthToken, getCreditTrans);
 router.get("/debit/:accountnumber", checkAuthToken, getDebitTrans);
 

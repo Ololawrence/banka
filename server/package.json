@@ -9,7 +9,6 @@
     "tests": "cross-env NODE_ENV=test npm run buildTables && cross-env NODE_ENV=test mocha  --require babel-register tests/*.test.js --exit",
     "test": "mocha --timeout 10000",
     "build": "babel index.js -d dist",
-    "starts": "npm run build &&  npm run seed && dist/index.js",
     "start": "node index.js",
     "seed": "node seed.js"
   },
