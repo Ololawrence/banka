@@ -4,8 +4,7 @@ import axios from "axios";
 
 const initialState = {
   account: {},
-  accountError: "",
-  accountSuccess: "",
+  accountStatus: "",
   accountPending: false,
   completed: false,
 };
@@ -14,21 +13,27 @@ export const createAccount = createAsyncThunk(
   "account/CreateAccount",
   async (values, { rejectWithValue }) => {
     try {
-      const headers = {
+      const token = JSON.parse(localStorage.getItem("token"));
+      const options = {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "x-access-token": localStorage.getItem("token"),
+        Accept: "application/json",
+        Method: "POST",
+        "x-access-token": token,
       };
+
       let res = await axios.post(`${Url}/api/user/account`, values, {
-        headers: headers,
+        headers: options,
       });
-      console.log(res);
+      localStorage.setItem("user", JSON.stringify(res.data));
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
+
 
 const accountSlice = createSlice({
   name: "account",
@@ -37,19 +42,26 @@ const accountSlice = createSlice({
     resetState: (state) => {
       return initialState;
     },
+    logOut: (state) => {
+      
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      localStorage.removeItem("transactions");
+      return
+    }
+
   },
+
   extraReducers: {
     [createAccount.pending]: (state, { payload }) => {
-      return { ...state, registerStatus: "pending" };
+      return { ...state, accountStatus: "pending", account: payload };
     },
     [createAccount.fulfilled]: (state, { payload }) => {
       if (payload) {
         return {
           ...state,
-          user: payload,
-          registerStatus: "success",
-          userLoaded: true,
-          pending: false,
+          account: payload,
+          accountStatus: "success",
           completed: true,
         };
       } else return state;
@@ -57,11 +69,12 @@ const accountSlice = createSlice({
     [createAccount.rejected]: (state, { payload }) => {
       return {
         ...state,
-        registerStatus: "rejected",
-        registerError: payload,
+        account: payload,
+        accountStatus: "rejected",
+        completed: false,
       };
     },
   },
 });
-export const { resetState } = accountSlice.actions;
+export const { resetState, logOut } = accountSlice.actions;
 export default accountSlice.reducer;

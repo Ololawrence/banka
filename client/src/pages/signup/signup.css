@@ -37,7 +37,7 @@
 
 .loginDesc {
     font-size: 18px;
-    margin-right: 100px;
+    margin-right: 20px;
 }
 
 .loginBox {
@@ -101,4 +101,19 @@
     .loginRegisterButton {
         width: 100%;
     }
+}
+
+@media screen and (max-width:320px) {
+    .loginLogo {
+        margin-top: 10px;
+    }
+    .loginLeft {
+       margin-top: 10px;
+    }    
+    .login{
+        width:100%;
+    }
+        .loginBox {
+            width:80%;
+        }
 }

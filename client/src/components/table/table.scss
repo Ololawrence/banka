@@ -12,15 +12,15 @@
     }
   }
 
-  .status {
+  .type {
     padding: 5px;
     border-radius: 5px;
 
-    &.Approved {
+    &.credit {
       color: green;
       background-color: rgba(0, 128, 0, 0.151);
     }
-    &.Pending {
+    &.debit {
       color: goldenrod;
       background-color: rgba(189, 189, 3, 0.103);
     }

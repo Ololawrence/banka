@@ -1,8 +1,21 @@
 import "./sidebar.scss";
-
+import { useDispatch } from "react-redux";
+import { logOut, resetState } from "../../features/accountSice";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+const dispatch = useDispatch()
+const navigate = useNavigate()
+const handleLogOut = () => {
+  dispatch(logOut())
+  dispatch(resetState());
+  navigate('/login')
+}
+
+
+
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -13,44 +26,17 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <Link to="/dashboad" style={{ textDecoration: "none" }}>
-
-             <p className="title">MAIN</p>
-          </Link>
          
           <li>
             <span>Dashboard</span>
-          </li>
-          <p className="title">LISTS</p>
-          <Link to="/create account" style={{ textDecoration: "none" }}>
-            <li>
-              <span>create account</span>
-            </li>
-          </Link>
-          <Link to="/debit" style={{ textDecoration: "none" }}>
-            <li>
-              <span>debit</span>
-            </li>
-          </Link>
-          <Link to="/credit" style={{ textDecoration: "none" }}>
-            <li>
-              <span>credit</span>
-            </li>
-          </Link>
+          </li>  
 
-          <li>
-            <span>Logout</span>
+          <li >
+            <span onClick = {handleLogOut}>Logout</span>
           </li>
         </ul>
       </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-        ></div>
-        <div
-          className="colorOption"
-        ></div>
-      </div>
+     
     </div>
   );
 };

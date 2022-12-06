@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Register from "./pages/signup/signup";
 import Login from "./pages/login/login.jsx";
@@ -13,10 +14,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 const ProtectedRoute = ({ children }) => {
-  const auth = useSelector((state) => state.auth);
+  const auths = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-  if (!auth) {
-    return <Navigate to="/login" />;
+  if (!auths) {
+    navigate('/login')
   }
 
   return children;
@@ -31,11 +33,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
+            element={<ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>}
           />
         </Routes>
       </Router>

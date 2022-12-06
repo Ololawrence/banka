@@ -13,7 +13,6 @@ const Login =()  => {
 const navigate = useNavigate();
 const [credentials,setCredentials]= useState("")
 const dispatch = useDispatch();
-console.log(auth.loginError)
 
   useEffect(() => {
     
@@ -42,6 +41,7 @@ console.log(auth.loginError)
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch(loginUser(credentials));
+
   };
 
   return (
