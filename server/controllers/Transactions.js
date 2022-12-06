@@ -72,8 +72,8 @@ class TransactionController {
     await transaction.save();
     await trans.save();
 
-    return res.status(200).json({
-      message: `your account ${accountnumber} was debited with # ${amount}`,
+    return res.status(201).json({
+      message: `your account ${accountnumber} was debited with #${amount}`,
       by: user?.firstname + " " + user?.lastname,
       trans,
       accountUpdate,
@@ -128,7 +128,7 @@ class TransactionController {
     await trans.save();
 
     return res.status(200).json({
-      message: `your account ${accountnumber} was debited with # ${amount}`,
+      message: `your account ${accountnumber} was credited with #${amount}`,
       by: user?.firstname + " " + user?.lastname,
       trans,
       accountUpdate,
@@ -136,9 +136,10 @@ class TransactionController {
   }
 
   static async getAllUserTransactions(req, res) {
-    const accountnumber = req.params.accountnumber;
+    // const accountnumber = req.params.accountnumber;
+        const UserId = req.user._id;
 
-    let Trans = await Transactions.find({ accountnumber });
+    let Trans = await Transactions.find({ userId: UserId });
     if (!Trans) {
       return res.status(404).json({
         message: "No transaction with the given accountID",

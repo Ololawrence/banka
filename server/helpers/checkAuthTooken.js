@@ -17,9 +17,9 @@ const checkAuthToken = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    res.status(401).json({
-      status: res.statusCode,
+    res.status(500).json({
       error: "Invalid Token",
+      message:err
     });
   }
 };

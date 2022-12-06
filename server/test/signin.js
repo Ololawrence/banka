@@ -27,12 +27,12 @@ describe("Log In Route", () => {
           .eql(inputs.validLoginInputs.email);
       });
 
-      it("should throw an error 400 for not registered email address", async () => {
+      it("should throw an error 401 for not registered email address", async () => {
         const res = await chai
           .request(app)
           .post("/api/auth/login")
           .send(inputs.invalidLoginEmail);
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
 
       });
 

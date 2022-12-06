@@ -21,7 +21,6 @@ const AccountSchema = new mongoose.Schema({
       },
       openingbalance: {
         type: Number,
-        required: true,
       },
       accountbalance: {
         type: Number,

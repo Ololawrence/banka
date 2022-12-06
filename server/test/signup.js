@@ -11,7 +11,7 @@ chai.should();
 
 describe("Default API Route", () => {
     beforeEach((done) => {
-      Auth.remove({}, (err) => {
+      Auth.deleteMany({}, (err) => {
         done();
       });
     });

@@ -1,7 +1,11 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import Jwt  from 'jsonwebtoken';
+
 const inputs = {
   validSignupInputs: {
-      firstname: "Ayodeji",
-      lastname: "Afolabi",
+    firstname: "Ayodeji",
+    lastname: "Afolabi",
     email: "xwebyna@gmail.com",
     password: "BankaTest20",
   },
@@ -18,30 +22,23 @@ const inputs = {
     email: "xwebynaxwebyna@gmail.com",
     password: "BankaTest20",
   },
-  pswResetValid: {
-    password: "BankaAdmin2019",
-    newPassword: "Andela2019",
-    confirmNewPassword: "Andela2019",
-  },
-  pswResetInValid: {
-    password: "Admin2019",
-    newPassword: "andela",
-    confirmNewPassword: "andela",
-  },
-  pswResetInValid2: {
-    password: "banka",
-    newPassword: "Andela2019",
-    confirmNewPassword: "Andela20197",
-  },
 
-  admin2SignupInputs: {
-    email: "xwebynaxwebyna@gmail.com",
-    firstName: "Ayodeji",
-    lastName: "Afolabi",
-    password: "banka",
-    confirmPassword: "banka",
-    type: "staff",
+  createAccount: {
+    address:"temitope road ketu",
+    phone:"7015009775",
+    openingbalance:4000,
+    type:"savings"
   },
 };
+
+export function generateAuthToken(user) {
+    const token = Jwt.sign(
+      { id: user._id,},
+      process.env.KEY,
+      { expiresIn: '24h' }
+    );
+    return token;
+  }
+
 
 export default inputs;

@@ -35,10 +35,12 @@ export const AccoutValidationRules = () => {
       .not()
       .isEmpty()
       .isNumeric()
-      .isLength({ max: 10 })
+      .isLength({ max: 11, min: 10 })
       .trim()
-      .withMessage("phone number not up to 10  digit"),
-    body("openingbalance").not().isEmpty().isNumeric().trim(),
+      .withMessage(
+        "phone number should not be more than 11 degit or less than 10 digit"
+      ),
+    body("openingbalance").not().isEmpty().trim(),
     body("type").not().isEmpty().trim().withMessage("type is required"),
   ];
 };

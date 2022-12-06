@@ -19,14 +19,11 @@ class AccountController {
 
   static async createAccount(req, res, next) {
     const Id = req.user._id;
-    const { address, phone, openingbalance, type } = req.body;
-
+    const { address, type } = req.body;
+    const phone = Number(req.body.phone);
+    const openingbalance = Number(req.body.openingbalance);
     const user = await User.findById(Id);
-    if(user == null || undefined || !user) {
-        return res.status(400).json({
-            message:"no logged in user"
-        })
-    }
+
     let accountExist = await Account.findOne({ accountnumber: phone });
     const { firstname, lastname, email } = user;
     if (accountExist?.accountnumber == phone) {
@@ -55,6 +52,21 @@ class AccountController {
         email,
         newAcct,
       },
+    });
+  }
+
+  static async getUserAccount(req, res) {
+    let userId = req.user._id;
+    const account = await Account.findOne({userId});
+    if (!account) {
+      return res.status(400).json({
+        message: "user account not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "user account retrieved successfully",
+      data: account,
     });
   }
 }

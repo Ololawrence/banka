@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/debit/:accountnumber", checkAuthToken,DebitValidationRules(), validate, debit);
 router.post("/credit/:accountnumber", checkAuthToken, creditValidationRules(), validate, deposit);
 router.get(
-  "/transactions/:accountnumber",
+  "/transactions",
   checkAuthToken,
   getAllUserTransactions
 );

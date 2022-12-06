@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Signup from './models/Signup.js';
+import Account from './Models/Account.js';
 import dotEnv  from 'dotenv';
 dotEnv.config();
 
@@ -35,9 +36,20 @@ mongoose
     },
   ];
 
+  const accountSeed = {
+    
+userId:"638bac62af3e0fffe64e0b94",
+    address: "temitope road ketu",
+    accountnumber: "7015009775",
+    openingbalance: 4000,
+    type: "savings",
+  };
+
   const seedDb = async() => {
     await Signup.deleteMany({});
     await Signup.insertMany(userSeed);
+    await Account.deleteMany({});
+    await Account.insertMany(accountSeed);
   }
 
   seedDb().then(() => {

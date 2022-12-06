@@ -5,9 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "npm run seed && nodemon  index.js",
+    "tests": "cross-env NODE_ENV=test npm run buildTables && cross-env NODE_ENV=test mocha  --require babel-register tests/*.test.js --exit",
     "test": "mocha --timeout 10000",
-    "start":"node index.js"
+    "build": "babel index.js -d dist",
+    "starts": "npm run build &&  npm run seed && dist/index.js",
+    "start": "node index.js",
+    "seed": "node seed.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +27,9 @@
     "mongoose": "^6.7.5"
   },
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
     "mocha": "^10.1.0",
